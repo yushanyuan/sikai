@@ -7,11 +7,13 @@ package org.sakaiproject.cmsrest.controller;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 
 import javax.annotation.Resource;
@@ -19,6 +21,7 @@ import javax.annotation.Resource;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.sakaiproject.cmsrest.logic.AutoNewCourseSite;
+import org.sakaiproject.cmsrest.logic.CmDao;
 import org.sakaiproject.cmsrest.logic.SiteManage;
 import org.sakaiproject.cmsrest.utils.PropertiesUtil;
 import org.sakaiproject.cmsrest.utils.UUIDUtil;
@@ -36,6 +39,8 @@ import org.sakaiproject.user.api.User;
 import org.sakaiproject.user.api.UserDirectoryService;
 import org.sakaiproject.user.api.UserNotDefinedException;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
@@ -73,6 +78,12 @@ public class RestFileController {
 	
 	@Resource(name="org.sakaiproject.cmsrest.logic.SiteManage")
 	private SiteManage siteManage;
+	
+	@Resource(name="messageSource")
+	private MessageSource messageSource;
+	
+	@Resource(name="org.sakaiproject.cmsrest.logic.CmDao")
+	private CmDao cmDao;
 	
 	@InitBinder
     public void initBinder(WebDataBinder binder) {
@@ -145,7 +156,9 @@ public class RestFileController {
 		}catch(Exception e){
 			e.printStackTrace();
 			logger.warn("学期删除失败！", e);
-			model.addAttribute("alertMesage", "学期正在被使用，请先删除课程！");
+			Locale locale = LocaleContextHolder.getLocale();
+			
+			model.addAttribute("alertMesage", messageSource.getMessage("msg_remove_academic_error", null, locale));
 		}
 		return index(model);
 	} 
@@ -190,7 +203,8 @@ public class RestFileController {
 			Set<CanonicalCourse> canCourseSet = cmService.getCanonicalCourses(eid);
 			if(canCourseSet!=null && canCourseSet.size()>0){
 				logger.warn("学院删除失败");
-				model.addAttribute("alertMesage", "学院正在被使用，请先删除课程！");
+				Locale locale = LocaleContextHolder.getLocale();
+				model.addAttribute("alertMesage", messageSource.getMessage("msg_remove_college_error", null, locale));
 			}else{
 				courseManagementAdministration.removeCourseSet(eid);
 			}
@@ -198,7 +212,8 @@ public class RestFileController {
 		}catch(Exception e){
 			e.printStackTrace();
 			logger.warn("学院删除失败", e);
-			model.addAttribute("alertMesage", "学院正在被使用，请先删除课程！");
+			Locale locale = LocaleContextHolder.getLocale();
+			model.addAttribute("alertMesage", messageSource.getMessage("msg_remove_college_error", null, locale));
 		}
 		return index(model);
 	}
@@ -306,10 +321,11 @@ public class RestFileController {
 						//autoNewCourseSite.closeSession();
 						if(site!=null && site.getId()!=null){
 							autoNewCourseSite.openSession();
+							 
 							String courseEid = UUIDUtil.getUUID();
 							courseManagementAdministration.createCanonicalCourse(courseEid, siteName, siteName);
 							courseManagementAdministration.addCanonicalCourseToCourseSet(courseSetEid, courseEid);
-							
+							 
 							String courseOfferingEid = site.getId();
 							courseManagementAdministration.createCourseOffering(courseOfferingEid, siteName, siteName, "open", academicSessionEid, courseEid, academicSession.getStartDate(), academicSession.getEndDate());
 							courseManagementAdministration.addCourseOfferingToCourseSet(courseSetEid, courseOfferingEid);
@@ -319,7 +335,9 @@ public class RestFileController {
 					} catch (Exception e) {
 						logger.error("cms error: AcademicSession Eid: "+academicSession.getEid() +" Section Eid : "+ null +" fail to create course site !");
 						e.printStackTrace();
-						model.addAttribute("alertMesage", "创建课程站点"+courseName+"失败！");
+						Locale locale = LocaleContextHolder.getLocale();
+						model.addAttribute("alertMesage", messageSource.getMessage("msg_create_site_error", new String[]{courseName}, locale));
+						//model.addAttribute("alertMesage", "创建课程站点"+courseName+"失败！");
 					}
 				}
 			}
@@ -355,7 +373,11 @@ public class RestFileController {
 							e.printStackTrace();
 						}
 						if(site!=null && site.getId()!=null){
-							model.addAttribute("alertMesage", "课程正在被使用，请先删除课程站点！");
+							
+							Locale locale = LocaleContextHolder.getLocale();
+							model.addAttribute("alertMesage", messageSource.getMessage("msg_remove_course_error", null, locale));
+							
+							//model.addAttribute("alertMesage", "课程正在被使用，请先删除课程站点！");
 						}else{
 							courseManagementAdministration.removeSection(sc.getEid());
 							flag = true;
@@ -508,7 +530,12 @@ public class RestFileController {
 					siteManage.addUsersToSite(siteId, userList, roleList);
 				} catch (Exception e) {
 					e.printStackTrace();
-					model.addAttribute("alertMesage", "选课学生列表导入有错误！");
+					
+					
+					Locale locale = LocaleContextHolder.getLocale();
+					model.addAttribute("alertMesage", messageSource.getMessage("msg_import_student", null, locale));
+					
+					//model.addAttribute("alertMesage", "选课学生列表导入有错误！");
 				}
 			}
 		}

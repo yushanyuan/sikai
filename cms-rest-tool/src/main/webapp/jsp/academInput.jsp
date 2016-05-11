@@ -3,26 +3,26 @@
 <jsp:directive.include file="/templates/includes.jsp"/>
 
 
-<h2>添加学期</h2>
+<h2><fmt:message key="new" /></h2>
  
 <form action="academSave.htm" method="POST">
 	 <table class="itemSummary">
         <tr>
-            <th><label for="academName">学期：</label></th>
-            <td><input type="text" id="academName" name="academName" />(例：2015春)</td>
+            <th><label for="academName"><fmt:message key="academic_session" />：</label></th>
+            <td><input type="text" id="academName" name="academName" /><fmt:message key="academName" /></td>
         </tr>
         <tr>
-            <th><label for="startDate">开始日期：</label></th>
-            <td><input type="text" id="startDate" name="startDate" />(例：2015-02-25)</td>
+            <th><label for="startDate"><fmt:message key="startdate" />：</label></th>
+            <td><input type="text" id="startDate" name="startDate" /><fmt:message key="startdateEG" /></td>
         </tr>
          <tr>
-            <th><label for="endDate">结束日期：</label></th>
-            <td><input type="text" id="endDate" name="endDate" />(例：2015-06-30)</td>
+            <th><label for="endDate"><fmt:message key="enddate" />：</label></th>
+            <td><input type="text" id="endDate" name="endDate" /><fmt:message key="enddateEG" /></td>
         </tr>
         <tr>
             <td colspan=2>
                 <input type="reset" />
-                <input type="submit" value="提交"/>
+                <input type="submit" />
             </td>
         </tr>
     </table>

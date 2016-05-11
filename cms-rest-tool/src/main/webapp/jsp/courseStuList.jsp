@@ -5,12 +5,12 @@
 <c:if test="${!empty alertMesage}">
 	<div class="alertMessage">${ alertMesage}</div>
 </c:if>
-<h2>选课学生列表</h2>
+<h2><fmt:message key="studentList" /></h2>
 <ul id="actionToolBar" class="navIntraTool actionToolBar">
-	<li class="firstToolBarItem"><span><a href="courseStuAdd.htm?courseEid=${courseEid }">导入选课学生</a></span></li>
+	<li class="firstToolBarItem"><span><a href="courseStuAdd.htm?courseEid=${courseEid }"><fmt:message key="importEnrollment" /></a></span></li>
 </ul>
 <table  class="listHier lines nolines">
-	<tr><th>序号</th><th>名</th><th>姓</th></tr>
+	<tr><th><fmt:message key="id" /></th><th><fmt:message key="firstName" /></th><th><fmt:message key="lastName" /></th></tr>
 	<tr>
 		<td>
 		<c:forEach items="${userList }" var="u" varStatus="index">

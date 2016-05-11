@@ -30,6 +30,11 @@
     	<property name="cmService" ref="org.sakaiproject.coursemanagement.api.CourseManagementService" />
     </bean>
     
+   	<bean id="org.sakaiproject.cmsrest.logic.CmDao" class="org.sakaiproject.cmsrest.logic.impl.CmDaoImpl"
+		init-method="init">
+    	<property name="sqlService" ref="org.sakaiproject.db.api.SqlService" />
+    </bean>
+    
     <bean id="org.sakaiproject.cmsrest.logic.SiteManage" class="org.sakaiproject.cmsrest.logic.impl.SiteManageImpl"
 		init-method="init">
 		<property name="userDirectoryService" ref="org.sakaiproject.user.api.UserDirectoryService" />
