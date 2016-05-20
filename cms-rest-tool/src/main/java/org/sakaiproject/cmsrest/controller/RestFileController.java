@@ -6,8 +6,8 @@ package org.sakaiproject.cmsrest.controller;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -18,6 +18,7 @@ import java.util.Set;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.sakaiproject.cmsrest.logic.AutoNewCourseSite;
@@ -41,6 +42,10 @@ import org.sakaiproject.user.api.UserNotDefinedException;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
@@ -541,4 +546,21 @@ public class RestFileController {
 		}
 		return courseStuList(model,courseEid);
 	}
+	
+	
+	
+
+	@RequestMapping("/download")    
+    public ResponseEntity<byte[]> download(Model model, 
+			@RequestParam("fileName") String fileNameStr) throws IOException {    
+        //File file=new File(path);  
+        InputStream is = RestFileController.class.getClassLoader().getResourceAsStream(fileNameStr);
+        HttpHeaders headers = new HttpHeaders();    
+        String fileName=new String(fileNameStr.getBytes("UTF-8"),"iso-8859-1");//为了解决中文名称乱码问题  
+        headers.setContentDispositionFormData("attachment", fileName);   
+        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);   
+        return new ResponseEntity<byte[]>(IOUtils.toByteArray(is),    
+                                          headers, HttpStatus.CREATED);    
+    }    
+
 }

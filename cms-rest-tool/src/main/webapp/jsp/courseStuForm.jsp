@@ -19,7 +19,7 @@
         </tr>
         <tr>
            <th><label for="studentTemplate"><fmt:message key="studentTemplate" />：</label></th>
-            <td><a href="/library/cms-rest/students.txt">students.txt</a></td>
+            <td><a href="download.htm?fileName=students.txt">students.txt</a></td>
         </tr>
         <tr>
             <td colspan=2>

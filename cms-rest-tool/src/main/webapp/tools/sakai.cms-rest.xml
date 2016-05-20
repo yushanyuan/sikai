@@ -6,7 +6,7 @@
 
 		 
 		<configuration name="functions.require" /> 
-		
+		<category name="sakai.admin" /> 
     </tool>
 </registration>
 

@@ -29,7 +29,7 @@
         </tr>
        <tr>
            <th><label for="courseTemplate"><fmt:message key="courseTemplate" />：</label></th>
-            <td><a href="/library/cms-rest/courses.txt">courses.txt</a></td>
+            <td><a href="download.htm?fileName=courses.txt">courses.txt</a></td>
         </tr>
         <tr>
             <td colspan=2>
