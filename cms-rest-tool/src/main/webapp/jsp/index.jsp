@@ -6,7 +6,10 @@
 <c:if test="${!empty alertMesage}">
 	<div class="alertMessage">${ alertMesage}</div>
 </c:if>
+<div class="page-header">
 <h2><fmt:message key="academic_session"></fmt:message></h2>
+</div>
+
  
 <ul id="actionToolBar" class="navIntraTool actionToolBar">
 	<li class="firstToolBarItem"><span><a href="academAdd.htm"><fmt:message key="new"></fmt:message></a></span></li>
@@ -19,8 +22,9 @@
 	</c:forEach>
 </table>
 
-
-<h2><fmt:message key="college" /></h2>
+<div class="page-header">
+	<h2><fmt:message key="college" /></h2>
+</div>
 <ul id="actionToolBar" class="navIntraTool actionToolBar">
 	<li class="firstToolBarItem"><span><a href="courseSetInput.htm"><fmt:message key="new" /></a>	</span></li>
 </ul>

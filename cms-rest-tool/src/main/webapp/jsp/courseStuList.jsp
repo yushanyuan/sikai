@@ -5,7 +5,9 @@
 <c:if test="${!empty alertMesage}">
 	<div class="alertMessage">${ alertMesage}</div>
 </c:if>
-<h2><fmt:message key="studentList" /></h2>
+<div class="page-header">
+	<h2><fmt:message key="studentList" /></h2>
+</div>
 <ul id="actionToolBar" class="navIntraTool actionToolBar">
 	<li class="firstToolBarItem"><span><a href="courseStuAdd.htm?courseEid=${courseEid }"><fmt:message key="importEnrollment" /></a></span></li>
 </ul>

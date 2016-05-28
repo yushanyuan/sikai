@@ -9,7 +9,7 @@
 	 <table class="itemSummary">
         <tr>
             <th><label for="courseSetName"><fmt:message key="name" />：</label></th>
-            <td><input type="text" id="courseSetName" name="courseSetName" /><fmt:message key="name" /></td>
+            <td><input type="text" id="courseSetName" name="courseSetName" /><fmt:message key="collegeName" /></td>
         </tr>
        
         <tr>
