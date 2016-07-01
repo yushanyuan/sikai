@@ -415,7 +415,8 @@ public class RestFileController {
 	 * @return
 	 */
 	@RequestMapping(value="/courseStuAdd")
-	public String courseStuAdd(Model model, @RequestParam(value="courseEid") String courseEid) {
+	public String courseStuAdd(Model model, @RequestParam(value="courseEid") String courseEid,
+											@RequestParam("courseSetEid") String courseSetEid) {
 		
 		Set<CourseOffering> courseOfferingSet = cmService.getCourseOfferingsInCanonicalCourse(courseEid);
 		if(courseOfferingSet!=null && courseOfferingSet.size()>0){
@@ -428,6 +429,7 @@ public class RestFileController {
 			}
 			model.addAttribute("site", site);
 			model.addAttribute("courseEid", courseEid);
+			model.addAttribute("courseSetEid", courseSetEid);
 		}
 		
 		return "courseStuForm";
@@ -440,7 +442,8 @@ public class RestFileController {
 	 * @return
 	 */
 	@RequestMapping(value="/courseStuList")
-	public String courseStuList(Model model, @RequestParam(value="courseEid") String courseEid){
+	public String courseStuList(Model model, @RequestParam(value="courseEid") String courseEid,
+												@RequestParam("courseSetEid") String courseSetEid){
 		
 		Set<CourseOffering> courseOfferingSet = cmService.getCourseOfferingsInCanonicalCourse(courseEid);
 		if(courseOfferingSet!=null && courseOfferingSet.size()>0){
@@ -469,6 +472,7 @@ public class RestFileController {
 			}
 		}
 		model.addAttribute("courseEid", courseEid);
+		model.addAttribute("courseSetEid", courseSetEid);
 		
 		return "courseStuList";
 	}
@@ -489,6 +493,7 @@ public class RestFileController {
 	public String courseStuSave(Model model, 
 			@RequestParam("siteId") String siteId, 
 			@RequestParam(value="courseEid") String courseEid,
+			@RequestParam("courseSetEid") String courseSetEid,
 			@RequestParam("fileUpload") MultipartFile fileUpload) {
 		
 		if (fileUpload.getOriginalFilename() != null && !fileUpload.isEmpty()) {
@@ -544,7 +549,7 @@ public class RestFileController {
 				}
 			}
 		}
-		return courseStuList(model,courseEid);
+		return courseStuList(model,courseEid,courseSetEid);
 	}
 	
 	

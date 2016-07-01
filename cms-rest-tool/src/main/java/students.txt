@@ -1,2 +1,2 @@
-student
-student1
+zhangsan
+lisi

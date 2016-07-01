@@ -4,7 +4,7 @@
 <script type="text/javascript">
 	function back(){
 		
-		window.location.href="courseStuList.htm?courseEid="+document.getElementById("courseEid").value;
+		window.location.href="courseStuList.htm?courseEid="+document.getElementById("courseEid").value+"&courseSetEid="+document.getElementById("courseSetEid").value;
 	}
 </script>
 
@@ -13,6 +13,7 @@
 <form action="courseStuSave.htm" method="POST"  enctype="multipart/form-data">
 	<input type="hidden" name="siteId" value="${site.id }" />
 	<input type="hidden" name="courseEid" id="courseEid" value="${courseEid }" />
+	<input type="hidden" name="courseSetEid" id="courseSetEid" value="${courseSetEid }" />
 	 <table class="itemSummary">
 	 	<tr>
             <th><label for="id"><fmt:message key="course" />：</label></th>
