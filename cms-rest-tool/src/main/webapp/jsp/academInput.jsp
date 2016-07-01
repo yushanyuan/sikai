@@ -2,7 +2,12 @@
 <jsp:directive.include file="/templates/header.jsp"/>
 <jsp:directive.include file="/templates/includes.jsp"/>
 
-
+<script type="text/javascript">
+	function back(){
+		
+		window.location.href="index.htm";
+	}
+</script>
 <h2><fmt:message key="new" /></h2>
  
 <form action="academSave.htm" method="POST">
@@ -21,8 +26,8 @@
         </tr>
         <tr>
             <td colspan=2>
-                <input type="reset" />
-                <input type="submit" />
+                <input type="button" class="btn" value="取消" onclick="back()"/>
+                <input type="submit" class="btn" value="提交"/>
             </td>
         </tr>
     </table>

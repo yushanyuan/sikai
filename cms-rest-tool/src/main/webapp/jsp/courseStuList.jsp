@@ -13,14 +13,10 @@
 </ul>
 <table  class="listHier lines nolines">
 	<tr><th><fmt:message key="id" /></th><th><fmt:message key="firstName" /></th><th><fmt:message key="lastName" /></th></tr>
-	<tr>
-		<td>
 		<c:forEach items="${userList }" var="u" varStatus="index">
 			<tr><td>${index.index+1 }</td><td>${u.firstName }</td><td>${u.lastName }</td>
 			</tr>
 		</c:forEach>
-		</td>
-	</tr>
 </table>
 
  
